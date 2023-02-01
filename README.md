@@ -1,4 +1,4 @@
-# New Project
+# Periodic Table Snowpack Application
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
