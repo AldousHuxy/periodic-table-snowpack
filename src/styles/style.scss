@@ -1,0 +1,97 @@
+$font-stack: Arial, Helvetica, sans-serif;
+$light-color: #f4f4f4;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: $light-color;
+    font-family: $font-stack;
+    line-height: 1.6;
+}
+
+.table-container {
+    padding: 0 30px;
+    margin: 0 auto;
+
+    .table-title {
+        border: 1px solid black;
+        border-radius: 3px;
+        margin-top: 30px;
+        text-align: center;
+    }
+}
+
+
+.element {
+    border: 1px solid black;
+    border-radius: 3px;
+    margin: 1px;
+    width: auto;
+
+    .atomic-num {
+        font-size: x-small;
+        font-weight: bold;
+        margin-left: 7%;
+    }
+    
+    .symbol {
+        font-size:small;
+        font-weight: bolder;
+        text-align: center;
+    }
+    
+    .name {
+        font-size: x-small;
+        text-align: center;
+    }
+    
+    .atomic-weight {
+        font-size: xx-small;
+        text-align: center;
+    }
+}
+
+#table {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+
+    #helium {
+        grid-column: 18;
+    }
+
+    #boron {
+        grid-column: 13;
+    }
+
+    #aluminum {
+        grid-column: 13;
+    }
+
+    #cerium {
+        grid-column: 5;
+    }
+
+    #thorium {
+        grid-column: 5;
+    }
+}
+
+#evaluation {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin-top: 2px;
+    padding: 1px;
+
+    #search {
+        text-align: center;
+        border: 1px solid black;
+        border-radius: 3px;
+        margin-right: 1px;
+    }
+}
