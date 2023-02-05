@@ -82,16 +82,31 @@ body {
 
 #evaluation {
     display: grid;
-    grid-template-columns: 10% 90%;
+    grid-template-columns: 7% 3% 83% 7%;
     border: 1px solid black;
     border-radius: 3px;
     margin-top: 2px;
     padding: 1px;
 
-    #search {
+    #eval {
         text-align: center;
         border: 1px solid black;
         border-radius: 3px;
         margin-right: 1px;
+        
+        &Add {
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 3px;
+            margin-right: 1px;
+        }
+
+        &Clear {
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 3px;
+            margin-right: 1px;
+        }
     }
 }

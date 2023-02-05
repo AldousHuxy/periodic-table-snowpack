@@ -1,16 +1,31 @@
+import $ from "jquery";
 import type { Atom } from "./Atom";
-import { Formula } from "./Formula";
+import type { Substrate } from "./Substrate";
 
+type jquery = JQuery<HTMLElement>
 class Environment {
-    reactant: Formula = new Formula()
+    // Substrates
+    reactants: Substrate[] = []
+    products: Substrate[] = []
+
+    // Environmental factors
     catalyst: boolean = false
     heated: boolean = false
     reversible: boolean = false
-    preciptate: boolean = false
+    precipitate: boolean = false
     evaporate: boolean = false
 
-    setupEnv(atom: Atom): void {
-        this.reactant.addMolecule(atom)
+    // Environment I/O
+    env: jquery = $('#searchBar')
+    reactantAdded: boolean = false
+
+    modifyEnv(atom: Atom) {
+
+        return this.writeEnv(atom)
+    }
+
+    writeEnv(atom: Atom) {
+        return atom.symbol
     }
 }
 

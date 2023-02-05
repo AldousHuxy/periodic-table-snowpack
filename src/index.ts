@@ -1,13 +1,9 @@
 import { table } from './table';
-import { Environment } from "./components/Environment";
 import type { Atom } from './components/Atom';
+import { Environment } from './components/Environment';
 
 // Setup chemical reaction environment
 let env: Environment = new Environment()
-table()
 
-const appendReactant = (atom: Atom): string => {
-    return env.setupEnv(atom)
-}
-
-export { appendReactant };
+// Generate periodic table html
+table(env)

@@ -1,51 +1,82 @@
 import $ from "jquery";
 import { Atom, atoms } from "./components/Atom";
-import { appendReactant } from "./index";
+import type { Environment } from "./components/Environment";
 
-const table = (): void => {
-    const tableTitle: JQuery<HTMLElement> = $('<div>Periodic Table of Elements</div>').attr('class', 'table-title')
-    $('.table-container').append(tableTitle, tableElements(atoms), tableEvaluation())
+type jquery = JQuery<HTMLElement>
+const div: string = '<div></div>'
+
+// Main Table HTML
+const table = (env: Environment): void => {
+    $('.table-container').append(tableTitle, tableElements(atoms, env), tableEvaluation(env))
 }
 
-const tableEvaluation = (): JQuery<HTMLElement> => {
-    const evaluation: JQuery<HTMLElement> = $('<div></div>').attr('id', 'evaluation')
-    const search: JQuery<HTMLElement> = $('<div>Evaluation</div>').attr('id', 'search')
-    const searchBar: JQuery<HTMLElement> = $('<input>').attr('type', 'text')
-    searchBar.attr('id', 'searchBar')
-    evaluation.append(search, searchBar)
-    
-    return evaluation
-}
+// Table Title HTML
+const tableTitle: jquery = $('<h2>Periodic Table of Elements</h2>').attr('class', 'table-title')
 
-const tableElements = (atoms: Atom[]): JQuery<HTMLElement> => {
-    const table = $('<div></div>').attr('id', 'table')
+// Table Elements List HTML
+const tableElements = (atoms: Atom[], env: Environment): jquery => {
+    const table = $(div).attr('id', 'table')
     
     atoms.forEach(atom => {
         const lowerName: string = atom.name.toLowerCase()
-
-        const element: JQuery<HTMLElement> = $('<button></button>').attr('id', lowerName)
-        element.attr('class', 'element')
+        
+        // element - HTML body
+        const element: jquery = $('<button></button>').attr({ id:lowerName, class:'element' })
         element.on('click', () => {
-            $('#searchBar').val(appendReactant(atom))
+            $('#evalBar').val(env.modifyEnv(atom))
+            env.reactantAdded = false
         })
-        table.append(element)
-
-        const atomicNum: JQuery<HTMLElement> = $('<div></div>').attr('class', 'atomic-num')
-        atomicNum.text(atom.atomicNum)
-
-        const symbol: JQuery<HTMLElement> = $('<div></div>').attr('class', 'symbol')
-        symbol.text(atom.symbol)
-
-        const name: JQuery<HTMLElement> = $('<div></div>').attr('class', 'name')
-        name.text(atom.name)
-
-        const atomicWeight: JQuery<HTMLElement> = $('<div></div>').attr('class', 'atomic-weight')
-        atomicWeight.text(atom.atomicWeight)
-
-        element.append(atomicNum, symbol, name, atomicWeight)
+        
+        // element - atomic num
+        const atomicNum: jquery = $(div)
+            .attr('class', 'atomic-num')
+            .text(atom.atomicNum)
+        
+        // element - symbol
+        const symbol: jquery = $(div)
+            .attr('class', 'symbol')
+            .text(atom.symbol)
+        
+        // element - name
+        const name: jquery = $(div)
+            .attr('class', 'name')
+            .text(atom.name)
+        
+        // element - atomic weight
+        const atomicWeight: jquery = $(div)
+            .attr('class', 'atomic-weight')
+            .text(atom.atomicWeight)
+        
+        table.append(element.append(atomicNum, symbol, name, atomicWeight))
     })
-
+    
     return table
+}
+
+// Table Evaluation HTML
+const tableEvaluation = (env: Environment): jquery => {
+    // evaluate - HTML body
+    const evaluation: jquery = $(div).attr('id', 'evaluation')
+
+    // evaluate
+    const evaluate: jquery = $('<div>Evaluate</div>').attr('id', 'eval')
+
+    // evaluate - add
+    const evalAdd: jquery = $('<button>+</button>').attr('id', 'evalAdd')
+    evalAdd.on('click', () => {
+        (evalBar.val() === '') ? evalBar.val('') : evalBar.val(evalBar.val() + ' + ')
+        env.reactantAdded = true
+    })
+    
+    // evaluate - text box
+    const evalBar: jquery = $('<input>').attr({ type:'text', id:'evalBar' })
+
+    // evaluate - clear
+    const evalClear: jquery = $('<div>Clear</div>').attr('id', 'evalClear')
+    
+    evaluation.append(evaluate, evalAdd, evalBar, evalClear)
+    
+    return evaluation
 }
 
 export { table };
